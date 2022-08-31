@@ -1,92 +1,60 @@
-# cmsc436fall2022-student
+## Welcome to CMSC436 Fall 2022
 
+### What is Git and how to install it  
 
+Git is the industry standard for souce code management in industry. The course is not about git and all that it can do but rather we are using it as a tool to distribute code to you as well as how you will be submitting your project/laboratory implementations.  
 
-## Getting started
+Git is an extremely powerful tool and while we will only be using a very small set of its features if you would like to learn more start [here](https://www.atlassian.com/git/tutorials/what-is-git). To get started using git you will need to install in on your system. [Here](https://www.atlassian.com/git/tutorials/install-git) is a link to how to install git on a Mac, Windows or Linux system.  
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+__NOTE:__ There are countless git clients that provide a graphical user interface for you to use. In fact Android Studio provides a built in git client itself. We, however, will be focusing on using git from the command line.  
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+### Our git workflow  
+You will need to clone this repository on your local development machine. In addition to that you will also need to add an additional remote repository that we will refer to as `upstream`. When cloning your repository and adding additional remotes, you must decide on whether you want to use `ssh` or `https` protocals. The primary difference is that if you use `https` you will need to enter your diretory ID and password everytime you push to your origin remote. If you have already added a ssh key to your university gitlab account you can still use it. If you do not have a ssh key and would like to add one follow the steps in this [document](https://gitlab.cs.umd.edu/help/ssh/index#generating-a-new-ssh-key-pair). The suggested type of key to generate is a [1024-bit RSA key](https://gitlab.cs.umd.edu/help/ssh/index#rsa-ssh-keys).  
 
-## Add your files
-
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
-
+The following set-up steps assume https as the chosen protocal for cloning your git repo and adding upstream.  
+1. clone your repo locally wherever you plan on doing your development work for the course.  
+Navigate to the directory where you want to clone your repository and run the following command: `git clone https://gitlab.cs.umd.edu/cmsc436fall2022/cmsc436-<your-directory-id>.git`. When this command is complete you will now see a new directory that will have the name `cmsc436-<your-directory-id>`.  
+2.  Navigate into your new cloned repository. From the command line you would enter: `cd cmsc436-<your-directory-id>`.  
+3.  Run `git remote -v`. You should see an output like the following:  
 ```
-cd existing_repo
-git remote add origin https://gitlab.cs.umd.edu/arasevic/cmsc436fall2022-student.git
-git branch -M main
-git push -uf origin main
+origin	https://gitlab.cs.umd.edu/cmsc436fall2022/cmsc436-<your-directory-id>.git (fetch)
+origin	https://gitlab.cs.umd.edu/cmsc436fall2022/cmsc436-<your-directory-id>.git (push)
+```  
+`origin` is the label given to the url that points to your repository running on the universitry gitlab server. There is direct connection between your repository on your local machine and the repository that `origin` points to. Your repository is private and can only be viewed by yourself and members of the teaching staff. It is where you will do all of your coding and where you submit your work by comitting and pushing those changes to your `origin`. So how will you get your assignments as they are released?  
+4.  From inside of your repository directory, run the following command:  
+`git remote add upstream https://gitlab.cs.umd.edu/arasevic/cmsc436fall2022-student.git`. Once that is complete run `git remote -v` again. You should see the following output:  
 ```
+origin	https://gitlab.cs.umd.edu/cmsc436fall2022/cmsc436-<your-directory-id>.git (fetch)
+origin	https://gitlab.cs.umd.edu/cmsc436fall2022/cmsc436-<your-directory-id>.git (push)
+upstream	https://gitlab.cs.umd.edu/arasevic/cmsc436fall2022-student.git (fetch)
+upstream	https://gitlab.cs.umd.edu/arasevic/cmsc436fall2022-student.git (push)
+```  
+__NOTE:__ while the origin url will vary and be unique for everyone the upstream will be identical for everyone.  
 
-## Integrate with your tools
+`upstream` is a common repository that everyone will be able to `pull` from and add new files and changes to existing files in their own repositories. Your access to this repository is read only - in terms of git commands this is analogous to `git pull`. You can write to your origin repository and this is analagous to `git push`. The flow for the course is we will add new started code for projects/exercises to `upstream` and then to receive them you will issue the following command:  
+`git pull upstream main` .  
+This command will add the changes in the `upstream` repository to your local copy of your repository. At this point your local repository and your `origin` will be different. You can verify this by running `git status`. You should see something along the lines of your local repository is 1 (or more) commits ahead of origin main. To resolve this you just need to run:  
+ `git push origin main`. Once that is done your local repository and your remote `origin` will be the same.  
 
-- [ ] [Set up project integrations](https://gitlab.cs.umd.edu/arasevic/cmsc436fall2022-student/-/settings/integrations)
+ ### submitting your work  
+ Saving your files is not enough to be able to `push` your changes to your `origin`. Git doesn't track every file save you do - it only tracks commits. In order to commit your changes you should start with the following:  
+ `git status`  
 
-## Collaborate with your team
+ `git status` will tell you if there are any chnages to files git is tracking or if there are new files present in your repository that git is not tracking (i.e. you've added a new kotlin class to comlete your laboratory assignemnt). In either scenario you need to execute the following:  
+ `git add relative/path/to/file/you/want/to/commit`  
+ Since you are already in the directory that contains your repository there is no need to do absolute paths. Once you have added all of your files to be committed then you simply run:  
+ `git commit -m "your commit message"`  
+ The text you type inside of the parentheses will be attached to that specific commit and can be viewd in your commit history by running `git log`. When you are committing the code that you want to count as your submission for an assignment you should enter something similar to "completing custom codepen project". The final step is to then run `git push origin main`. If you do not push to your origin we will not be able to look at your code.  
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+ __NOTE:__ When submitting assignments always log into the [university gitlab server](https://gitlab.cs.umd.edu) after pushing. This is a sanity check and will prevent you from reveiving a zero because you thought you pushed after committing but in fact did not. It is also important to realize that if you get in the habit of pushing to your origin often you will always have a back-up of your work in case your local machine's hard drive fails.
 
-## Test and Deploy
 
-Use the built-in continuous integration in GitLab.
-
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
-
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+### Git commands to know
+1.  `git status` ([reference](https://www.atlassian.com/git/tutorials/inspecting-a-repository)) 
+2.  `git add` ([reference](https://www.atlassian.com/git/tutorials/saving-changes)) 
+3.  `git commit` ([reference](https://www.atlassian.com/git/tutorials/saving-changes/git-commit)) 
+4.  `git pull`  ([reference](https://www.atlassian.com/git/tutorials/syncing/git-pull))
+5.  `git push` ([reference](https://www.atlassian.com/git/tutorials/syncing/git-push)) 
+6.  `git remote -v`  ([reference](https://www.atlassian.com/git/tutorials/syncing))
+7.  `git remote add upstream <upstream_url>` ([reference](https://docs.github.com/en/github/using-git/adding-a-remote))  
+8. testing git workflow
