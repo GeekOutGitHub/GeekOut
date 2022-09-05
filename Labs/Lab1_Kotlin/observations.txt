@@ -1,0 +1,4 @@
+A difference between Kotlin and Java is how variables are defined. To define a variable in Java, the type of variable is specified 
+then the name. Where in Kotlin, it uses val or var to define if the variable is mutable or immutable, which is not used in Java. 
+Something else that Kotlin uses that is different from Java is that Kotlin has raw strings which are specified by triple quotes around 
+the text. Everything is a raw string will be displayed which is useful for text with multiple lines or to represent specific characters.
