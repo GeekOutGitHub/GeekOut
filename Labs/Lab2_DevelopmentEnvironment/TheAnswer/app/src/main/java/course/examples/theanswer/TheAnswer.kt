@@ -33,7 +33,7 @@ class TheAnswer : AppCompatActivity() {
 
     private fun findAnswer(): Int? {
         // Incorrect behavior
-         return answers.firstOrNull { it == -answer }
+         return answers.firstOrNull { it == answer }
         // Correct behavior
          // return answers.firstOrNull { it == answer }
     }
