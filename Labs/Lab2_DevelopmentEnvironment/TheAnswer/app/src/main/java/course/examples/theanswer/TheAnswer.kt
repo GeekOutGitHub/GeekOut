@@ -1,6 +1,7 @@
 package course.examples.theanswer
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import course.examples.theanswer.databinding.AnswerLayoutBinding
@@ -10,6 +11,7 @@ class TheAnswer : AppCompatActivity() {
     companion object {
         private val answers = intArrayOf(42, -10, 0, 100, 1000)
         private const val answer = 42
+        private const val TAG = "TheAnswer"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,6 +23,8 @@ class TheAnswer : AppCompatActivity() {
         // Set up the application's user interface (content view)
         val binding = AnswerLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        Log.i(TAG, "Printing the answer to life")
 
         val value = findAnswer()
         val output =
