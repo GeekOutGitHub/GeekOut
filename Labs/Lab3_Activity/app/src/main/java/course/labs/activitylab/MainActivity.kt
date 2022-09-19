@@ -21,6 +21,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     // TODO:
+    private var countOnCreate = 0
+    private var countOnRestart = 0
+    private var countOnStart = 0
+    private var countOnResume = 0
     // Create four counter variables for onCreate(), onRestart(), onStart() and onResume()
     // Only need 4 lines of code
 
@@ -37,6 +41,8 @@ class MainActivity : AppCompatActivity() {
         val secondActivityLaunchBtn = binding.fab
         secondActivityLaunchBtn.setOnClickListener {
             // TODO :
+            val intent = Intent(this@MainActivity,SecondActivity::class.java)
+            startActivity(intent)
             // Launch the SecondActivity when this button is clicked
             // [Hint] Use startActivity() method with intent to start the SecondActivity
         }
@@ -46,12 +52,17 @@ class MainActivity : AppCompatActivity() {
         savedInstanceState?.apply { restoreCounts(savedInstanceState) }
 
         // TODO :
+        countOnCreate++
         // Update the appropriate count variable
     }
 
     private fun displayCounts() {
         // Call this function when the screen needs to be updated
         // TODO :
+        binding.onCreate.setText("onCreate() calls: $countOnCreate")
+        binding.onStart.setText("onStart() calls: $countOnStart")
+        binding.onResume.setText("onResume() calls: $countOnResume")
+        binding.onRestart.setText("onRestart() calls: $countOnRestart")
         // Complete the function - update TextViews to show the current
         // values of the variables of the counters
         // [Hint] Access TextViews using "binding" object like we did with "secondActivityLaunchBtn"
@@ -61,6 +72,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun restoreCounts (savedInstanceState:Bundle) {
         // TODO :
+        countOnCreate = savedInstanceState.getInt(CREATE_KEY)
+        countOnStart = savedInstanceState.getInt(START_KEY)
+        countOnResume = savedInstanceState.getInt(RESUME_KEY)
+        countOnRestart = savedInstanceState.getInt(RESTART_KEY)
         // Only need 4 lines of code, restore four count variables using savedInstanceState
         // [Hint] You can get saved values from from savedInstanceState using "keys" defined
         // in the companion object.
@@ -69,6 +84,10 @@ class MainActivity : AppCompatActivity() {
     public override fun onSaveInstanceState(savedInstanceState: Bundle) {
         super.onSaveInstanceState(savedInstanceState)
         // TODO :
+        savedInstanceState.putInt(CREATE_KEY,countOnCreate)
+        savedInstanceState.putInt(START_KEY,countOnStart)
+        savedInstanceState.putInt(RESUME_KEY,countOnResume)
+        savedInstanceState.putInt(RESTART_KEY,countOnRestart)
         // Save counter information with a collection of key-value pairs
         // As keys, use const values defined in the companion object
         // Only 4 lines need for each counter variable
@@ -78,6 +97,7 @@ class MainActivity : AppCompatActivity() {
         super.onStart()
         Log.i(TAG, "onStart() called")
         // TODO :
+        countOnStart++
         // Update the appropriate count variable
     }
 
@@ -85,6 +105,8 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         Log.i(TAG, "onResume() called")
         // TODO :
+        countOnResume++
+        displayCounts()
         // 1. Update the appropriate count variable
         // 2. Update the user interface
     }
@@ -93,6 +115,7 @@ class MainActivity : AppCompatActivity() {
         super.onRestart()
         Log.i(TAG, "onRestart() called")
         // TODO :
+        countOnRestart++
         // Update the appropriate count variable
     }
 
