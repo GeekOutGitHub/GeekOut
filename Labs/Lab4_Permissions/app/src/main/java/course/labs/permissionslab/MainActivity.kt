@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
 import course.labs.common.showSnackbar
 import course.labs.permissionslab.databinding.ActivityMainBinding
@@ -29,11 +30,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onButtonClick() {
-        var PERMISSION: String = ""
+
+        val granted = checkSelfPermission(PERMISSION) ==
+                PackageManager.PERMISSION_GRANTED
 
         when {
             //TODO: If the permission has already been granted dial the number.
             // [Hint]: Use checkSelfPermission to check if the permission has been granted, and then call the dialPhoneNumber() method.
+            granted -> {
+                dialPhoneNumber()
+            }
+
 
             //TODO: Remove the variable - PERMISSION, after completing the above block.
 
@@ -52,6 +59,7 @@ class MainActivity : AppCompatActivity() {
             // User hasn't been asked for permission yet.
             else -> {
                 // TODO: launch the permission request launcher.
+                requestPermissionLauncher.launch(PERMISSION)
             }
         }
     }
@@ -64,6 +72,7 @@ class MainActivity : AppCompatActivity() {
         ) { isGranted ->
         //TODO: Dial the phone number if the permission has been granted.
             if (isGranted) {
+                dialPhoneNumber()
             } else {
                 Toast.makeText(
                     this, getString(R.string.need_permission_string),
@@ -75,10 +84,17 @@ class MainActivity : AppCompatActivity() {
     private fun dialPhoneNumber() {
         //TODO: Create an Intent with the appropriate action and data.
         // [Hint]:Implicitly start an Activity to call the desired Phone Number.
+        val intent = Intent(ACTION, Uri.parse(PHONE_NUMBER_URI))
+        startActivity(intent)
     }
 
     //TODO: Create a companion object that contains and defines
     // the ACTION string for dialing a phone number without user input,
     // the PERMISSION needed for doing this,
     // and PHONE_NUMBER_URI to be used in the Intent (the desired number is 5554).
+    companion object {
+        private const val PERMISSION = "android.permission.CALL_PHONE"
+        private const val ACTION = Intent.ACTION_CALL
+        private const val PHONE_NUMBER_URI = "tel:5554"
+    }
 }
