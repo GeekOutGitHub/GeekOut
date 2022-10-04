@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import course.labs.fragmentslab.databinding.SecondFragmentBinding
 
@@ -15,7 +17,7 @@ class SecondFragment : Fragment() {
     // Create a binding to the second fragment
     private lateinit var binding: SecondFragmentBinding
     // Create a variable of type CounterViewModel to keep track of counts
-    private lateinit var viewModel: CounterViewModel
+    private val viewModel by activityViewModels<CounterViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,6 +40,9 @@ class SecondFragment : Fragment() {
         // Initialize CounterViewModel instance
 
         // TODO:
+        binding.onCreate.text = getString(R.string.oncreate_calls_string, viewModel.create.value)
+        binding.onStart.text = getString(R.string.onstart_calls_string, viewModel.start.value)
+        binding.onResume.text = getString(R.string.onresume_calls_string, viewModel.resume.value)
         // Use binding to display initial counts
 
         // The function below updates the counts over time
@@ -47,6 +52,16 @@ class SecondFragment : Fragment() {
     private fun beginObservingCounters() {
 
         // TODO:
+        viewModel.create.observe(viewLifecycleOwner) {
+            binding.onCreate.text = getString(R.string.oncreate_calls_string, viewModel.create.value)
+        }
+        viewModel.start.observe(viewLifecycleOwner) {
+            binding.onStart.text = getString(R.string.onstart_calls_string, viewModel.start.value)
+        }
+        viewModel.resume.observe(viewLifecycleOwner) {
+            binding.onResume.text = getString(R.string.onresume_calls_string, viewModel.resume.value)
+        }
+
         // Register observers for each of the count variables
         // In the body of the observe function, update the text to be displayed by using the binding
 
