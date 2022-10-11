@@ -91,7 +91,7 @@ class MainActivity : AppCompatActivity() {
         Log.i(TAG, "onStart() called")
         // TODO :
         // Register receiver dynamically using IntentFilter
-        // 2 lines of codes need - Intent.ACTION_POWER_CONNECTED & Intent.ACTION_POWER_CONNECTED
+        // 2 lines of codes need - Intent.ACTION_POWER_CONNECTED & Intent.ACTION_POWER_DISCONNECTED
 
     }
 
