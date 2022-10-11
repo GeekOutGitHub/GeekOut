@@ -43,6 +43,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/alpha_bar"
         app:layout_constraintEnd_toStartOf="@+id/alpha_bar" />
 
+
     <SeekBar
         android:id="@+id/alpha_bar"
         android:layout_width="256dp"
@@ -51,9 +52,9 @@
         android:progress="255"
         app:layout_constraintBottom_toTopOf="@+id/red_bar"
         app:layout_constraintEnd_toEndOf="@+id/red_bar"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/red_bar"
         app:layout_constraintTop_toTopOf="@+id/guideline2" />
-
 
     <TextView
         android:id="@+id/textView2"
