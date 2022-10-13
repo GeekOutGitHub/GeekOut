@@ -57,7 +57,6 @@ class MainActivity : AppCompatActivity() {
         // [Hint] Access TextViews using "binding" object like we did with "secondActivityLaunchBtn"
 
         // Only need 4 lines of code, one TextView for each counter variable
-        binding.onCreate.setText("hello")
     }
 
     private fun restoreCounts (savedInstanceState:Bundle) {
