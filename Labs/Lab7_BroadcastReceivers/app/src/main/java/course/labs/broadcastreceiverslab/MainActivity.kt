@@ -65,6 +65,7 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this)[PowerStatusViewModel::class.java]
 
         // TODO :
+        receiver = PowerConnectionStatusReceiver(viewModel)
         // Create the receiver passing viewModel as a constructor parameter
 
         // Observe changes to powerStatus
@@ -75,6 +76,11 @@ class MainActivity : AppCompatActivity() {
         // Register observer of powerStatus
         viewModel.isPowerConnected.observe(this) {
             // TODO :
+            pulsingRate = if (viewModel.isPowerConnected.value == true) {
+                HIGH_SPEED
+            } else {
+                LOW_SPEED
+            }
             // The pulsing rate should be updated according to the viewModel value (isPowerConnected)
             // [Hint] Use constant values - HIGH_SPEED, LOW_SPEED
 
@@ -90,6 +96,8 @@ class MainActivity : AppCompatActivity() {
         super.onStart()
         Log.i(TAG, "onStart() called")
         // TODO :
+        registerReceiver(receiver, IntentFilter(Intent.ACTION_POWER_CONNECTED))
+        registerReceiver(receiver, IntentFilter(Intent.ACTION_POWER_DISCONNECTED))
         // Register receiver dynamically using IntentFilter
         // 2 lines of codes need - Intent.ACTION_POWER_CONNECTED & Intent.ACTION_POWER_DISCONNECTED
 
@@ -102,6 +110,12 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         Log.i(TAG, "onResume() called")
         // TODO :
+        val batteryStatus: Intent? = registerReceiver(null,
+            IntentFilter(Intent.ACTION_BATTERY_CHANGED)
+        )
+        val status: Int = batteryStatus?.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1) ?: -1
+        val acCharge: Boolean = status == BatteryManager.BATTERY_PLUGGED_AC
+        viewModel.isPowerConnected.value = acCharge
         // Get the current power connection status from the system
         // Then update the value of viewModel's connection status
         // [Hint] How to get connection status from Intent
@@ -119,6 +133,7 @@ class MainActivity : AppCompatActivity() {
     override fun onStop() {
         Log.i(TAG, "onStop() called")
         // TODO :
+        unregisterReceiver(receiver)
         // Unregister receiver dynamically
 
         super.onStop()
