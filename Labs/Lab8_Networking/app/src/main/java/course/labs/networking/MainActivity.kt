@@ -11,6 +11,9 @@ class MainActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             // TODO
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.container, MainFragment())
+                .commitNow()
             // Initialize MainFragment
         }
     }

@@ -42,22 +42,29 @@ class MainViewModel : ViewModel() {
      */
     fun sendNetworkRequest() {
         // TODO:
+        if (job?.isActive == true) {
+            return
+        }
         // Ignore button click if a request is still active.
 
         // TODO:
+        _statusLiveData.value = Status.Progress(R.string.get_request_progress)
         // Update the Progress field of the Status LiveData feed and say that the GET request is being performed
 
         // Launch a new coroutine to run network request in the background.
         job = viewModelScope.launch {
             try {
                 // TODO:
+                val rawBitmap = makeNetworkCall(URL)
                 // Run the suspending network request to download the bitmap and store it in a variable
 
                 // TODO:
+                _statusLiveData.postValue(Status.Result(rawBitmap))
                 // Post the downloaded bitmap to the Result field of the Status LiveData Feed
 
             } catch (e: Exception) {
                 // TODO:
+                _statusLiveData.postValue(Status.Error(R.string.send_request_error, e))
                 // Something went wrong ... post an error message to the Error field of the Status LiveData feed.
 
             }
@@ -75,6 +82,8 @@ class MainViewModel : ViewModel() {
             delay(2000)
 
             // TODO:
+            val map = BitmapFactory.decodeStream(HttpClient().get(url))
+            Bitmap.createScaledBitmap(map, SIZE, SIZE, true)
             // Construct a new Ktor HttpClient to perform the GET
             // request and then return the resulting Bitmap
             // Use the decodeStream function from BitmapFactory to decode the HttpClient output into a Bitmap
@@ -82,7 +91,7 @@ class MainViewModel : ViewModel() {
 
             // Replace the line below with the code to download the bitmap
             // The line below has only been included so that the initial app compiles without errors
-            Bitmap.createBitmap(SIZE, SIZE, Bitmap.Config.RGB_565)
+            // Bitmap.createBitmap(SIZE, SIZE, Bitmap.Config.RGB_565)
         }
 
     /**
@@ -91,8 +100,9 @@ class MainViewModel : ViewModel() {
      * Download a square image of dimension (SIZE, SIZE) specified in URL below
      */
     companion object {
-        private const val URL =
-            "https://image-charts.com/chart?chs=150x150&cht=qr&chl=https://www.cs.umd.edu/class/fall2022/cmsc436/&choe=UTF-8"
+        //private const val URL =
+           // "https://image-charts.com/chart?chs=150x150&cht=qr&chl=https://www.cs.umd.edu/class/fall2022/cmsc436/&choe=UTF-8"
+        private const val URL = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.cs.umd.edu/class/fall2022/cmsc436/&choe=UTF-8"
         private const val SIZE = 450
     }
 }

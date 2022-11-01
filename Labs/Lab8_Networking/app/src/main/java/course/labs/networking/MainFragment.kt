@@ -46,6 +46,7 @@ class MainFragment : Fragment() {
             when (status) {
                 is Progress -> {
                     // TODO
+                    binding.info.text = getString(status.progress)
                     // Display a message saying that the GET request/download is in progress.
                 }
 
@@ -57,15 +58,18 @@ class MainFragment : Fragment() {
                     )
 
                     // TODO
+                    binding.button.isEnabled = true
                     // Re-enable button.
                 }
 
                 is Error -> {
                     // TODO
+                    binding.info.text = getString(status.errorResId, status.e.message)
                     // Display the error resource string and
                     // exception message in text view.
 
                     // TODO
+                    binding.button.isEnabled = true
                     // Re-enable button.
                 }
             }
@@ -78,12 +82,15 @@ class MainFragment : Fragment() {
          * **/
         binding.button.setOnClickListener {
             // TODO
+            binding.button.isEnabled = false
             // Disable button.
 
             // TODO
+            binding.info.text = null
             // Clear output text from the previous request.
 
             // TODO
+            viewModel.sendNetworkRequest()
             // Use viewModel to send asynchronous network request.
         }
     }
