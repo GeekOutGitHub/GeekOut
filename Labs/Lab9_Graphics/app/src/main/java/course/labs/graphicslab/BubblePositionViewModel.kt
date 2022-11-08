@@ -57,6 +57,9 @@ class BubblePositionViewModel : ViewModel(), DefaultLifecycleObserver {
         if (xPos < 0 || yPos < 0) {
 
             // ToDo:
+            xPos = (displayWidth - bitmapWidth) / 2.toFloat()
+            yPos = (displayHeight - bitmapWidth) / 2.toFloat()
+
             // Set first position in middle of the display
         }
 
@@ -88,6 +91,16 @@ class BubblePositionViewModel : ViewModel(), DefaultLifecycleObserver {
 
     private fun snapToEdge() {
         // ToDo:
+        if (xPos < 0) {
+            xPos = 0F
+        } else if (xPos > displayWidth - bitmapWidth) {
+            xPos = (displayWidth - bitmapWidth).toFloat()
+        }
+        if (yPos < 0) {
+            yPos = 0F
+        } else if (yPos > displayHeight - bitmapWidth) {
+            yPos = (displayHeight - bitmapWidth).toFloat()
+        }
         // If any part of the bubble image is offscreen
         // adjust the image position so it touches the screen
     }
@@ -95,6 +108,18 @@ class BubblePositionViewModel : ViewModel(), DefaultLifecycleObserver {
     private fun deflect() {
 
         // ToDo:
+        if (xPos == 0F) {
+            dx = 10F
+        }
+        if (xPos == (displayWidth - bitmapWidth).toFloat()) {
+            dx = -10F
+        }
+        if (yPos == 0F) {
+            dy = 10F
+        }
+        if (yPos == (displayHeight - bitmapWidth).toFloat()) {
+            dy = -10F
+        }
         // If the bubble images intersects a particular display edge
         // change the sign of trajectory component to create bounce
         // effect

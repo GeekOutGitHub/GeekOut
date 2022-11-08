@@ -8,6 +8,7 @@ import android.graphics.Paint
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.get
 import androidx.lifecycle.ViewModelProvider
 import course.labs.graphicslab.databinding.ActivityBubbleBinding
 
@@ -30,6 +31,8 @@ class BubbleActivity : AppCompatActivity() {
         setupUI()
 
         // ToDo:
+        positionViewModel = ViewModelProvider(this)[BubblePositionViewModel::class.java]
+        positionViewModel.bindToActivityLifecycle(this)
         // 1. Get ViewModel (BubblePositionViewModel) using ViewModelProvider
         // 2. Tie BubblePositionViewModel to BubbleActivity lifecycle
 
@@ -39,6 +42,9 @@ class BubbleActivity : AppCompatActivity() {
         // Set up user interface
 
         // ToDo:
+        mBitmap = BitmapFactory.decodeResource(resources,R.drawable.shiny_steel_ball)
+        scaledBitmap = Bitmap.createScaledBitmap(mBitmap, BITMAP_SIZE, BITMAP_SIZE, false)
+        bubbleView = BubbleView(applicationContext, (-1).toFloat(),(-1).toFloat())
         // 1. Load basic bubble Bitmap using resources and R.drawable.shiny_steel_ball
         // 2. Scale bitmap to BITMAP_SIZE
         // 3. Create BubbleView. Position offscreen initially
@@ -52,6 +58,7 @@ class BubbleActivity : AppCompatActivity() {
             beginObservingCounts()
             with(binding.frame) {
                 // ToDo:
+                positionViewModel.startMotion(resources.displayMetrics.widthPixels,resources.displayMetrics.heightPixels, BITMAP_SIZE)
                 // Start animation motion here using the positionViewModel
             }
         }
@@ -60,11 +67,13 @@ class BubbleActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         // ToDo:
+        binding.frame.addView(bubbleView)
         // Add BubbleView to FrameLayout
     }
 
     override fun onStop() {
         // ToDo:
+        binding.frame.removeView(bubbleView)
         // Remove BubbleView from FrameLayout
         super.onStop()
     }
@@ -73,6 +82,11 @@ class BubbleActivity : AppCompatActivity() {
         // Register observers of image position
 
         // ToDo:
+        positionViewModel.location.observe(this) {
+            bubbleView.x = positionViewModel.location.value!!.first
+            bubbleView.y = positionViewModel.location.value!!.second
+            bubbleView.invalidate()
+        }
         // 1. Get the position from ViewModel
         // 2. Set the x and y attributes of the bubble view to the position values retrieved in the previous step
         // 3. invalidate bubble view
