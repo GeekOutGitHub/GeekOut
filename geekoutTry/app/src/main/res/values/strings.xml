@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">geekoutTry</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="email_hint_string">Email</string>
+    <string name="password_hint_string">Password</string>
+    <string name="login_string">LOGIN</string>
+    <string name="logoDescription">Logo</string>
+    <string name="registerDescription">Not registered yet</string>
+    <string name="registerButton">Register here</string>
+    <string name="register_string">REGISTER</string>
+    <string name="loginDescription">Already registered</string>
+    <string name="nickName">Nickname</string>
+    <string name="login_toast">Please enter email...</string>
+    <string name="password_toast">Please enter password!</string>
+    <string name="nickname">Please enter nickname!</string>
+    <string name="login_success_toast">Login Successful</string>
+    <string name="login_fail_toast">Invalid email or password</string>
+    <string name="invalid_email">Please enter valid email…</string>
+    <string name="invalid_password">Password must contain 8 characters with one letter and one number!</string>
+    <string name="register_success_string">Registration successful!</string>
+    <string name="register_failed_string">Registration failed! Please try again later</string>
+
+
+</resources>

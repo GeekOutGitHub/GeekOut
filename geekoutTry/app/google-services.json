@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "70108711368",
+    "firebase_url": "https://geekouttry-default-rtdb.firebaseio.com",
+    "project_id": "geekouttry",
+    "storage_bucket": "geekouttry.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:70108711368:android:b802d961d0c2d6ac1fd8fd",
+        "android_client_info": {
+          "package_name": "com.example.geekouttry"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "70108711368-mn8alfdancand17dc3e95tfhj6dp83in.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCG3zJv3MEOod_WqYAg90JZ_Bfqo5TjFt4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "70108711368-mn8alfdancand17dc3e95tfhj6dp83in.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
